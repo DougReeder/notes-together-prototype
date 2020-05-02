@@ -1,0 +1,7 @@
+
+.list {
+    padding: 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
