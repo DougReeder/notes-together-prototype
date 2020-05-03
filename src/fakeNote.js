@@ -1,12 +1,15 @@
 // fake notes for testing
 // Copyright © 2020 by Doug Reeder
 
-function fakeNote() {
-  let text = "<b>" + titleA[Math.floor(Math.random()*titleA.length)] + " " +
-    titleB[Math.floor(Math.random()*titleB.length)] +
-      (Math.random() > 0.85 ? (" " + Math.floor(2 + Math.random()*2)) : "") +
-      " (" + Math.floor(1950 + Math.random()*70) + ")" +
-      "</b>\n";
+function movieNote() {
+  let text = '';
+  if (Math.random() < 0.5) {
+    const titleText = titleA[Math.floor(Math.random() * titleA.length)] + " " +
+        titleB[Math.floor(Math.random() * titleB.length)] +
+        (Math.random() > 0.85 ? (" " + Math.floor(2 + Math.random() * 2)) : "");
+    text = emphasizeTitle(titleText, " (" + Math.floor(1950 + Math.random() * 70) + ")");
+  }
+
   const numParagraphs = Math.floor(Math.exp(Math.random()*1.5));
   for (let i=0; i<numParagraphs; ++i) {
     text += "<p>";
@@ -21,6 +24,59 @@ function fakeNote() {
     id: Math.ceil((1 - Math.random()) * Number.MAX_SAFE_INTEGER),
     text: text,
     date: new Date(Date.now() + (Math.random()*32 - 31) * 24*60*60*1000)
+  }
+}
+
+function listNote() {
+  let text = '';
+
+  if (Math.random() < 0.5) {
+    const titleText = titleA[Math.floor(Math.random() * titleA.length)] + " " +
+        titleB[Math.floor(Math.random() * titleB.length)];
+    let suffix = '';
+    if (Math.random() < 0.4) {
+      suffix = ' ' + titleB[Math.floor(Math.random() * titleB.length)];
+    }
+    text = emphasizeTitle(titleText, suffix);
+  }
+
+  const listType = Math.random() > 0.5 ? '<ol>' : '<ul>';
+  text += listType;
+  const numItems = 1 + Math.floor(Math.exp(Math.random()*2));
+  for (let i=0; i<numItems; ++i) {
+    text += '<li>' + sentences[Math.floor(Math.random() * sentences.length)] + '</li>';
+  }
+  text += listType === '<ol>' ? '</ol>' : '</ul>';
+
+  return {
+    id: Math.ceil((1 - Math.random()) * Number.MAX_SAFE_INTEGER),
+    text: text,
+    date: new Date(Date.now() + (Math.random()*32 - 31) * 24*60*60*1000)
+  }
+}
+
+function randomNote() {
+  if (Math.random() < 0.7) {
+    return movieNote();
+  } else {
+    return listNote();
+  }
+}
+
+function emphasizeTitle(titleText, suffix) {
+  suffix = suffix ? suffix : '';
+
+  const r = Math.random();
+  if (r < 0.2) {
+    return "<b>" + titleText + "</b>" + suffix + "\n";
+  } else if (r < 0.4) {
+    return '<i>' + titleText + '</i>' + suffix + '\n';
+  } else if (r < 0.5) {
+    return '<h2>' + titleText + suffix + '</h2>\n';
+  } else if (r < 0.6) {
+    return '<h3>' + titleText + suffix + '</h3>\n';
+  } else {
+    return titleText + suffix + '\n';
   }
 }
 
@@ -135,7 +191,7 @@ const sentences = [
   "George Lucas's puerile script brings the actors to their knees, and his lack of direction makes them stay there.",
   "Starting with fights and ending with politics is a bit of a downer.",
   "Nowhere near as much fun as the sequel.",
-  "Not as much humour as the prequel.",
+  '<span style="font-size:larger">Not as much humour as the prequel.</span>',
   "The best of everything that was best about the franchise",
   "Has difficulties standing on its own; it relies heavily on knowledge of the previous movie.",
   "The funniest of all the films due to the fact that it is played totally tongue in cheek.",
@@ -245,4 +301,4 @@ const sentences = [
   "He embarks on a downward spiral of revolution and bloody crime.",
 ];
 
-export default fakeNote;
+export  {movieNote, listNote, randomNote};

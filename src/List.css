@@ -1,7 +1,36 @@
 
 .list {
-    padding: 1em;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: thin;
+}
+
+.list article {
+    height: 5ex;
+    overflow: hidden;
+
+    line-height: 2.5ex;
+    word-wrap: break-word;
+    font-weight: 400 !important;
+    color: #000 !important;
+}
+
+.list article:nth-child(odd) {
+    background-color: white;
+    border: 1em solid white;
+}
+
+.list article:nth-child(even) {
+    background-color: #eee;
+    border: 1em solid #eee;
+}
+
+
+.list article > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list ul, .list ol {
+    padding-left: 1em;
 }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import List from './List';
 import Detail from './Detail';
-import fakeNote from './fakeNote';
+import {randomNote} from './fakeNote';
 import './App.css';
 
 
@@ -11,7 +11,7 @@ class App extends Component {
 
     let notes = [];
     for (let i=-7 + Math.floor(Math.pow(15,1+Math.random()/2)); i>0; --i) {
-      notes.push(fakeNote());
+      notes.push(randomNote());
     }
     this.state = {
       notes: notes,
