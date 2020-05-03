@@ -18,15 +18,23 @@ class App extends Component {
       selectedNoteId: notes[Math.floor(Math.random()*notes.length)].id,
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   };
 
   handleSelect(id, evt) {
-    // console.log("App.selectNote:", id, index, evt);
+    // console.log("App.selectNote:", id, evt);
     // console.log("App.selectNote:", evt.currentTarget);
     this.setState((oldState, props) => {
       return {selectedNoteId: id};
     });
   };
+
+  handleEdit(id, newText, evt) {
+    // console.log("handleEdit:", id, newText, evt);
+    const modifiedNote = this.state.notes.find( note => note.id === id );
+    modifiedNote.text = newText;
+    this.forceUpdate();
+  }
 
   render() {
     const selectedNote = this.state.notes.find( note => note.id === this.state.selectedNoteId);
@@ -39,7 +47,7 @@ class App extends Component {
             <List notes={this.state.notes} handleSelect={this.handleSelect}></List>
           </div>
           <div className="panelDetail">
-            <Detail note={selectedNote}></Detail>
+            <Detail note={selectedNote} handleEdit={this.handleEdit}></Detail>
           </div>
         </div>
     );

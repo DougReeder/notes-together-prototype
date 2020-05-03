@@ -4,7 +4,7 @@
 function fakeNote() {
   let text = "<b>" + titleA[Math.floor(Math.random()*titleA.length)] + " " +
     titleB[Math.floor(Math.random()*titleB.length)] +
-      (Math.random() > 0.80 ? (" " + Math.floor(2 + Math.random()*2)) : "") +
+      (Math.random() > 0.85 ? (" " + Math.floor(2 + Math.random()*2)) : "") +
       " (" + Math.floor(1950 + Math.random()*70) + ")" +
       "</b>\n";
   const numParagraphs = Math.floor(Math.exp(Math.random()*1.5));
@@ -140,7 +140,7 @@ const sentences = [
   "Has difficulties standing on its own; it relies heavily on knowledge of the previous movie.",
   "The funniest of all the films due to the fact that it is played totally tongue in cheek.",
   "A TV plot is stretched to movie length.",
-  "Several of the books are almagated into this move.",
+  "Several of the books are almagated into this movie.",
   "One song (however good) is not enough to base a movie on.",
   "A film that tries hard but ultimately fails due to poor plotting, sub-par special effects and poor character development.",
   "As the series so often does, the events depicted mirror the glasnost of the late 1980s.",
@@ -211,7 +211,7 @@ const sentences = [
   "Breathes life into H.R. Giger's hallucinations.",
   "We discover the world as Chihiro does.",
   "Inhabitants of the fantastic world go about their daily business as usual as full with apathy as us normal folks.",
-  "Chaplin at his best.", "" +
+  "Chaplin at his best.",
   "Plight of the working classes during the Great Depression.",
   "Eva Marie Saint and Cary Grant have sizzling chemistry.",
   "The dialog crackles.",
@@ -222,7 +222,7 @@ const sentences = [
   "The storyline is deceptively simple.",
   "Scared the life out of me.",
   "Surprisingly little violence.",
-  "Sanderson is a man that we can all relate to. He is not a hero, he is not a rebel",
+  "Sanderson is a man that we can all relate to. He is not a hero, he is not a rebel.",
   "Dad couldn't stop talking about how authentic the environment and attitude were.",
   "A masterpiece of visual drama.",
   "Terrific moody ambiance.",
