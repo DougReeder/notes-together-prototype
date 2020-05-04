@@ -25,6 +25,10 @@
     border: 1em solid #eee;
 }
 
+.list article.selected {
+    background-color: lightblue;
+    border: 1em solid lightblue;
+}
 
 .list article > * {
     margin-top: 0;

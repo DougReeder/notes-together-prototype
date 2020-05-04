@@ -44,7 +44,8 @@ class App extends Component {
             <header className="App-header">
               <h1>Notes Together</h1>
             </header>
-            <List notes={this.state.notes} handleSelect={this.handleSelect}></List>
+            <List notes={this.state.notes} selectedNoteId={this.state.selectedNoteId}
+                  handleSelect={this.handleSelect}></List>
           </div>
           <div className="panelDetail">
             <Detail note={selectedNote} handleEdit={this.handleEdit}></Detail>

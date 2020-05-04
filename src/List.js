@@ -22,6 +22,7 @@ class List extends Component {
           const cleanHtml = sanitizeHtml(incipit, uniformList);
           // console.log(cleanHtml);
           return <article key={note.id.toString()} dangerouslySetInnerHTML={{ __html: cleanHtml }}
+                          className={note.id === this.props.selectedNoteId ? 'selected' : ''}
                        onClick={this.props.handleSelect.bind(this, note.id)}></article>
         }
     );
