@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html-react';
+import commonmark from 'commonmark';
 import "./Detail.css";
 
 const semanticOnly = {
@@ -41,6 +42,8 @@ class Detail extends Component {
     super(props);
     this.contentEditable = React.createRef();
     this.state = {};
+    this.markdownReader = new commonmark.Parser({smart: true});
+    this.markdownWriter = new commonmark.HtmlRenderer({softbreak: "<br />"});
   }
 
   handleChange = evt => {
@@ -48,21 +51,22 @@ class Detail extends Component {
   };
 
   pasteSemanticOnly = evt => {
-    console.log("pasteSemanticOnly types:", evt.clipboardData.types);
+    // console.log("pasteSemanticOnly types:", evt.clipboardData.types);
 
     evt.clipboardData.types.some(type => {
       if (type === 'text/html' || type === 'text/plain') {
         evt.preventDefault();
         let html = evt.clipboardData.getData(type);
-        console.log("clipboard data:", type, html);
-        if ('text/plain' === type) {
-          html = html.replace(/\n/g, '<br>\n');
+        // console.log("clipboard data:", type, html);
+        if ('text/plain' === type && /s/.test(html)) {
+          const parsed = this.markdownReader.parse(html);
+          html = this.markdownWriter.render(parsed);
         }
         html = sanitizeHtml(html, semanticOnly);
         document.execCommand('insertHTML', false, html);
         return true;
       } else  {   // use default handling for images, etc.
-        console.log("clipboard data:", type);
+        // console.log("clipboard data:", type);
         return false;
       }
       // TODO: convert text/rtf to HTML
