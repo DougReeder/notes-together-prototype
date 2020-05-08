@@ -38,3 +38,7 @@
 .list ul, .list ol {
     padding-left: 1em;
 }
+
+.list th {
+    font-weight: normal;
+}
