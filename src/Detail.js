@@ -89,7 +89,7 @@ class Detail extends Component {
     } else {
       content =
           (<div>
-            <div className="advice">This is the detail area.</div>;
+            <div className="advice">No details</div>
           </div>);
     }
     return content;

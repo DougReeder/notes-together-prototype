@@ -28,16 +28,21 @@ const uniformList = {allowedTags: [ 'p', 'ul', 'ol',
 class List extends Component {
 
   render() {
-    const listItems = this.props.notes.map(
-        (note) => {
-          const incipit = note.text.slice(0, 300);
-          const cleanHtml = sanitizeHtml(incipit, uniformList);
-          // console.log(cleanHtml);
-          return <article key={note.id.toString()} dangerouslySetInnerHTML={{ __html: cleanHtml }}
-                          className={note.id === this.props.selectedNoteId ? 'selected' : ''}
-                       onClick={this.props.handleSelect.bind(this, note.id)}></article>
-        }
-    );
+    let listItems;
+    if (this.props.notes.length > 0) {
+      listItems = this.props.notes.map(
+          (note) => {
+            const incipit = note.text.slice(0, 300);
+            const cleanHtml = sanitizeHtml(incipit, uniformList);
+            // console.log(cleanHtml);
+            return <article key={note.id.toString()} dangerouslySetInnerHTML={{__html: cleanHtml}}
+                            className={note.id === this.props.selectedNoteId ? 'selected' : ''}
+                            onClick={this.props.handleSelect.bind(this, note.id)}></article>
+          }
+      );
+    } else {
+      listItems = <div className="advice">No notes</div>
+    }
     return (
         <div className="list">
           {listItems}
