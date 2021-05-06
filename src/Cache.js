@@ -9,7 +9,7 @@ const cache = {};
 let cacheChangedCallback;
 
 function initCache(cacheChangedCallbackArg) {
-  remoteStorage = new RemoteStorage({modules: [ RemoteNotes ], cache: false});
+  remoteStorage = new RemoteStorage({modules: [ RemoteNotes ], cache: true});
   remoteStorage.access.claim('notes', 'rw');
 
   cacheChangedCallback = cacheChangedCallbackArg;
@@ -21,7 +21,7 @@ function initCache(cacheChangedCallbackArg) {
   remoteStorage.on('connected', async () => {
     const userAddress = remoteStorage.remote.userAddress;
     console.log(`remoteStorage connected to “${userAddress}”`);
-    await refreshCache();
+    // await refreshCache();
   });
 
   remoteStorage.on('not-connected', function() {
@@ -95,13 +95,13 @@ async function refreshCache() {
 }
 
 async function getNotesArr() {
-  return Object.values(cache);
+  return Object.values(cache).map(note => ({...note}));
 }
 
-async function storeNoteRemote(memoryNote) {
-  console.log("storeNoteRemote", memoryNote);
+async function upsertNoteRemote(memoryNote) {
+  console.log("upsertNoteRemote", memoryNote);
 
-  return remoteStorage.notes.add(memoryNote);
+  return remoteStorage.notes.upsert(memoryNote);
 }
 
-export {initCache, refreshCache, getNotesArr, storeNoteRemote};
+export {initCache, refreshCache, getNotesArr, upsertNoteRemote};

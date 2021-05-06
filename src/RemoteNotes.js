@@ -23,10 +23,14 @@ const RemoteNotes = {
       "required": [ "text", "date" ]
     });
 
+    privateClient.on('change', evt => {
+      console.log("change:", evt);
+    });
+
     return {
       exports: {
-        add: function(memoryNote) {   // available as remoteStorage.remoteNotes.add();
-          console.debug("remoteNotes.add", memoryNote);
+        upsert: function(memoryNote) {   // available as remoteStorage.remoteNotes.add();
+          console.debug("remoteNotes.upsert", memoryNote);
           const id = memoryNote.id || Math.ceil((1 - Math.random()) * Number.MAX_SAFE_INTEGER);
           const text = memoryNote.text || "";
           let date;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {initCache, refreshCache, getNotesArr, storeNoteRemote} from "./Cache";
+import {initCache, refreshCache, getNotesArr, upsertNoteRemote} from "./Cache";
 import List from './List';
 import Detail from './Detail';
 import {randomNote} from './fakeNote';
@@ -40,7 +40,7 @@ class App extends Component {
       for (let i = -7 + Math.floor(Math.pow(15, 1 + Math.random() / 2)); i > 0; --i) {
         const note = randomNote();
         notesArr.push(note);
-        const returnValue = await storeNoteRemote(note);
+        const returnValue = await upsertNoteRemote(note);
         console.log("fake note:", returnValue, note);
       }
     }
@@ -54,10 +54,12 @@ class App extends Component {
     });
   };
 
-  handleEdit(id, newText, evt) {
+  async handleEdit(id, newText, evt) {
     const modifiedNote = this.state.notes.find( note => note.id === id );
     modifiedNote.text = newText;
     this.forceUpdate();
+    const returnValue = await upsertNoteRemote(modifiedNote);
+    console.log("upsert return value:", returnValue);
   }
 
   render() {
