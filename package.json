@@ -10,7 +10,7 @@
     "react": "^16.13.1",
     "react-contenteditable": "^3.3.4",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "remotestorage-widget": "^1.5.1",
     "remotestoragejs": "^1.2.3",
     "sanitize-html-react": "^1.13.0"
